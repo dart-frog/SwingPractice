@@ -26,14 +26,16 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 
-public class Screen {
+public class Screen implements ItemListener  {
 	private static JFrame frame;
-	private static final String card1 = "Layout 1";
-	private static final String card2 = "Layout 2";
-	private static final String card3 = "Layout 3";
+	private static final String CARD1 = "Layout 1";
+	private static final String CARD2 = "Layout 2";
+	private static final String CARD3 = "Layout 3";
 	JPanel contentPane;
+	JPanel cards;
 	public static void main(String[] args) {
-		setUp();
+		Screen scr = new Screen();
+		scr.setUp();
 	}
 	public void setUp(){
 		frame = new JFrame("Swing practice");
@@ -43,11 +45,40 @@ public class Screen {
 		frame.setVisible(true);
 	}
 	public void createCardComponents(){
-		JPanel comboPanel  = new JPanel();
-		String[] items = {card1,card2,card3};
+		String[] items = {CARD1,CARD2,CARD3};
 		JComboBox combo = new JComboBox(items);
+		combo.setEditable(false);        
+		combo.addItemListener(this);
 		contentPane = new JPanel();
 		contentPane.add(combo);
+		frame.setContentPane(contentPane);
+		
+		//create cards
+		JPanel GridLay = new JPanel();
+		JLabel x = new JLabel("GridLay");
+		GridLay.add(x);
+		
+		JPanel GroupLay = new JPanel();
+		JLabel y = new JLabel("GroupLay");
+		GroupLay.add(y);
+		
+		JPanel FlowLay = new JPanel();
+		JLabel z = new JLabel("FlowLay");
+		FlowLay.add(z);
+		
+		//Create the panel that contains the "cards".      
+		cards = new JPanel(new CardLayout()); 
+		cards.add(GridLay,CARD1 );
+		cards.add(GroupLay, CARD2);
+		cards.add(FlowLay, CARD3);
+		
+		contentPane.add(cards);
 	}
+	public void itemStateChanged(ItemEvent evt) {        
+		CardLayout myCards = (CardLayout)(cards.getLayout());       
+		myCards.show(cards, (String)evt.getItem());    
+	}     
+	
+	
 	
 }
