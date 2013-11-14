@@ -56,7 +56,7 @@ public class Screen implements ItemListener  {
 		//create cards
 		JPanel GridLay = new JPanel();
 		JLabel x = new JLabel("GridLay");
-		GridLay.add(x);
+		GridLay.add(MyGridComponents.addLayout());
 		
 		JPanel GroupLay = new JPanel();
 		JLabel y = new JLabel("GroupLay");
