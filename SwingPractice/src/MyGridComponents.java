@@ -12,6 +12,15 @@ import javax.swing.JToggleButton;
 
 
 public class MyGridComponents implements ItemListener{
+	boolean jCB1x;
+	boolean jCB2x; 
+	
+	JCheckBox jCB1;
+	JCheckBox jCB2;
+	public MyGridComponents(){
+		
+	}
+	
 	public JPanel addLayout(){
 		JPanel GridLay = new JPanel();
 		GridLay.setLayout(new GridLayout(0, 1));
@@ -30,11 +39,12 @@ public class MyGridComponents implements ItemListener{
 		bGroup.add(jRB3);
 		GridLay.add(jRB3);
 		
-		JCheckBox jCB1 =  new JCheckBox("Check Box #1");
+		jCB1 =  new JCheckBox("Check Box #1");
 		jCB1.addItemListener(this);
 		GridLay.add(jCB1);
 		
-		JCheckBox jCB2 =  new JCheckBox("Check Box #2");
+		jCB2 =  new JCheckBox("Check Box #2");
+		jCB2.addItemListener(this);
 		GridLay.add(jCB2);
 		
 		JToggleButton jTB = new JToggleButton("Toggle Button");
@@ -51,8 +61,25 @@ public class MyGridComponents implements ItemListener{
 
 	@Override
 	public void itemStateChanged(ItemEvent evt) {
-		
-		
+		Object change = evt.getItemSelectable();
+		int index = 0;
+		if (change == jCB1){
+			index = 0;
+			jCB1x = true;
+		}
+		if (change == jCB2){
+			index = 1;
+			jCB2x = true;
+		}
+		if(evt.getStateChange() ==  ItemEvent.DESELECTED){
+			if (index == 0){
+				jCB1x = false;
+			}
+			if (index == 1){
+				jCB2x = false;
+			}
+		}
+		System.out.print(jCB1x + " " + jCB2x+"! ");
 	}
 	
 }
