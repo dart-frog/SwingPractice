@@ -44,11 +44,11 @@ public class Screen implements ItemListener,ActionListener {
 	//components 
 	JPanel contentPane;
 	JPanel cards;
-	static JCheckBox jCB1;
-	static JCheckBox jCB2;
-	static JToggleButton jTB;
-	static JTextArea jTA;
-	static //info
+	JCheckBox jCB1;
+	JCheckBox jCB2;
+	JToggleButton jTB;
+	JTextArea jTA;
+ //info
 	int radio;
 	public static void main(String[] args) {
 		Screen scr = new Screen();
@@ -62,12 +62,14 @@ public class Screen implements ItemListener,ActionListener {
 		frame.setVisible(true);
 	}
 	public void createCardComponents(){
+		
 		String[] items = {CARD1,CARD2,CARD3};
 		JComboBox combo = new JComboBox(items);
 		combo.setEditable(false);        
 		combo.addItemListener(this);
 		contentPane = new JPanel();
-		contentPane.add(combo);
+		contentPane.setLayout(new MigLayout("wrap 2"));
+		contentPane.add(combo,"wrap");
 		frame.setContentPane(contentPane);
 		
 		//create cards
@@ -92,21 +94,13 @@ public class Screen implements ItemListener,ActionListener {
 		contentPane.add(cards);
 	}
 	public void itemStateChanged(ItemEvent evt) {        
-		Object change = evt.getItemSelectable();
-		
-		if (change == jCB1){
-		
-		}
-		else if (change == jCB2){
-		}
-		else{
+
 			CardLayout myCards = (CardLayout)(cards.getLayout());      	
 			myCards.show(cards, (String)evt.getItem());
-		}
 	}     
 	public JPanel addGridLayout(){
 		JPanel GridLay = new JPanel();
-		GridLay.setLayout(new GridLayout(0, 1));
+		GridLay.setLayout(new GridLayout(0, 2));
 		
 		ButtonGroup bGroup = new ButtonGroup();
 		
@@ -126,11 +120,9 @@ public class Screen implements ItemListener,ActionListener {
 		GridLay.add(jRB3);
 		
 		jCB1 =  new JCheckBox("Check Box #1");
-		jCB1.addItemListener(this);
 		GridLay.add(jCB1);
 		
 		jCB2 =  new JCheckBox("Check Box #2");
-		jCB2.addItemListener(this);
 		GridLay.add(jCB2);
 		
 		jTB = new JToggleButton("Toggle Button");
@@ -138,6 +130,7 @@ public class Screen implements ItemListener,ActionListener {
 		GridLay.add(jTB);
 		
 		jTA = new JTextArea("Text area");
+		jTA.setEditable(true);
 		GridLay.add(jTA);
 		
 		JButton jB = new JButton("print");
@@ -159,7 +152,7 @@ public class Screen implements ItemListener,ActionListener {
 		migLay.add(jRB1);
 		
 		jCB1 =  new JCheckBox("Check Box #1");
-		jCB1.addItemListener(this);
+	
 		migLay.add(jCB1,"wrap");
 		
 		JRadioButton jRB2 = new JRadioButton("Radio Button #2");
@@ -168,7 +161,6 @@ public class Screen implements ItemListener,ActionListener {
 		migLay.add(jRB2);
 		
 		jCB2 =  new JCheckBox("Check Box #2");
-		jCB2.addItemListener(this);
 		migLay.add(jCB2,"wrap");
 		
 		JRadioButton jRB3 = new JRadioButton("Radio Button #3");
@@ -193,7 +185,7 @@ public class Screen implements ItemListener,ActionListener {
 		return migLay;
 		
 	}
-	 public static void printData(){
+	 public static void printData(JCheckBox jCB1, JCheckBox jCB2, JToggleButton jTB, int radio, JTextArea jTA){
 		 System.out.println("Check Box 1: " + Boolean.toString(jCB1.isSelected()));
 		 System.out.println("Check Box 2: " + Boolean.toString(jCB2.isSelected()));
 		 System.out.println("Radio " + radio);
