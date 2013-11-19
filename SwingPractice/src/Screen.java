@@ -3,6 +3,8 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,9 +40,9 @@ public class Screen implements ItemListener,ActionListener {
 	//frame
 	private static JFrame frame;
 	//cards
-	private static final String CARD1 = "Layout 1";
-	private static final String CARD2 = "Layout 2";
-	private static final String CARD3 = "Layout 3";
+	private static final String CARD1 = "Grid Layout";
+	private static final String CARD2 = "Mig Layout";
+	private static final String CARD3 = "GridBag Layout";
 	//components 
 	JPanel contentPane;
 	JPanel cards;
@@ -71,6 +73,7 @@ public class Screen implements ItemListener,ActionListener {
 		combo.addItemListener(this);
 		contentPane = new JPanel();
 		contentPane.setLayout(new MigLayout("wrap 2"));
+		contentPane.add(new JLabel("Choose a Card"));
 		contentPane.add(combo,"wrap");
 		frame.setContentPane(contentPane);
 		
@@ -85,7 +88,7 @@ public class Screen implements ItemListener,ActionListener {
 		
 		JPanel FlowLay = new JPanel();
 		JLabel z = new JLabel("FlowLay");
-		FlowLay.add(z);
+		FlowLay.add(addGridbagLayout());
 		
 		//Create the panel that contains the "cards".      
 		cards = new JPanel(new CardLayout()); 
@@ -132,7 +135,8 @@ public class Screen implements ItemListener,ActionListener {
 		GridLay.add(jTB);
 		
 		jTA = new JTextArea("Text area");
-		jTA.setEditable(true);
+		jTA.setColumns(30);
+		jTA.setRows(5);
 		GridLay.add(jTA);
 		
 		PrintButtonActionListener v = new PrintButtonActionListener(jCB1,jCB2, jTB, jTA, jRB1,jRB2,jRB3);
@@ -175,6 +179,8 @@ public class Screen implements ItemListener,ActionListener {
 		migLay.add(jTB, "wrap");
 		
 		jTA = new JTextArea("Text area");
+		jTA.setColumns(30);
+		jTA.setRows(5);
 		migLay.add(jTA,"wrap");
 		
 		PrintButtonActionListener v = new PrintButtonActionListener(jCB1,jCB2, jTB, jTA,jRB1,jRB2,jRB3);
@@ -184,7 +190,77 @@ public class Screen implements ItemListener,ActionListener {
 		return migLay;
 		
 	}
-	
+	public JPanel addGridbagLayout(){
+		JPanel GridBagLay = new JPanel(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		
+
+		
+		ButtonGroup bGroup = new ButtonGroup();
+		jRB1 = new JRadioButton("Radio Button #1");
+		//jRB1.addActionListener(this);
+		bGroup.add(jRB1);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 0;
+		GridBagLay.add(jRB1,c);
+		
+		jCB1 =  new JCheckBox("Check Box #1");
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 0.5;
+		c.gridx = 1;
+		c.gridy = 0;
+		GridBagLay.add(jCB1,c);
+		
+		jRB2 = new JRadioButton("Radio Button #2");
+		bGroup.add(jRB2);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 1;
+		GridBagLay.add(jRB2,c);
+		
+		jCB2 =  new JCheckBox("Check Box #2");
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 0.5;
+		c.gridx = 1;
+		c.gridy = 1;
+		GridBagLay.add(jCB2,c);
+		
+		jRB3 = new JRadioButton("Radio Button #3");
+		bGroup.add(jRB3);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 2;
+		GridBagLay.add(jRB3,c);
+		
+		jTB = new JToggleButton("Toggle Button");
+		jTB.addActionListener(this);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 0.5;
+		c.gridx = 1;
+		c.gridy = 2;
+		GridBagLay.add(jTB, c);
+		
+		jTA = new JTextArea("Text area");
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.ipady = 40;     
+		c.weightx = 0.0;
+		c.gridwidth = 3;
+		c.gridx = 0;
+		c.gridy = 3;
+		GridBagLay.add(jTA,c);
+		
+		PrintButtonActionListener v = new PrintButtonActionListener(jCB1,jCB2, jTB, jTA,jRB1,jRB2,jRB3);
+		JButton jB = new JButton("print");
+		jB.addActionListener(v);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 0.5;
+		c.gridx = 0;
+		c.gridy = 5;
+		GridBagLay.add(jB,c);
+		return GridBagLay;
+		
+	}
 	@Override
 	public void actionPerformed(ActionEvent evt) {
 		
