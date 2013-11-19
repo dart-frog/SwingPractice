@@ -48,8 +48,10 @@ public class Screen implements ItemListener,ActionListener {
 	JCheckBox jCB2;
 	JToggleButton jTB;
 	JTextArea jTA;
+	JRadioButton jRB1;
+	JRadioButton jRB2;
+	JRadioButton jRB3;
  //info
-	int radio;
 	public static void main(String[] args) {
 		Screen scr = new Screen();
 		scr.setUp();
@@ -104,17 +106,17 @@ public class Screen implements ItemListener,ActionListener {
 		
 		ButtonGroup bGroup = new ButtonGroup();
 		
-		JRadioButton jRB1 = new JRadioButton("Radio Button #1");
+		jRB1 = new JRadioButton("Radio Button #1");
 		jRB1.addActionListener(this);
 		bGroup.add(jRB1);
 		GridLay.add(jRB1);
 		
-		JRadioButton jRB2 = new JRadioButton("Radio Button #2");
+		jRB2 = new JRadioButton("Radio Button #2");
 		jRB2.addActionListener(this);
 		bGroup.add(jRB2);
 		GridLay.add(jRB2);
 		
-		JRadioButton jRB3 = new JRadioButton("Radio Button #3");
+		jRB3 = new JRadioButton("Radio Button #3");
 		jRB3.addActionListener(this);
 		bGroup.add(jRB3);	
 		GridLay.add(jRB3);
@@ -133,8 +135,9 @@ public class Screen implements ItemListener,ActionListener {
 		jTA.setEditable(true);
 		GridLay.add(jTA);
 		
+		PrintButtonActionListener v = new PrintButtonActionListener(jCB1,jCB2, jTB, jTA, jRB1,jRB2,jRB3);
 		JButton jB = new JButton("print");
-		jB.addActionListener(this);
+		jB.addActionListener(v);
 		GridLay.add(jB);
 		return GridLay;
 		
@@ -145,9 +148,8 @@ public class Screen implements ItemListener,ActionListener {
 		migLay.setLayout(migOut);
 		
 		ButtonGroup bGroup = new ButtonGroup();
-		
-		JRadioButton jRB1 = new JRadioButton("Radio Button #1");
-		jRB1.addActionListener(this);
+		jRB1 = new JRadioButton("Radio Button #1");
+		//jRB1.addActionListener(this);
 		bGroup.add(jRB1);
 		migLay.add(jRB1);
 		
@@ -155,22 +157,18 @@ public class Screen implements ItemListener,ActionListener {
 	
 		migLay.add(jCB1,"wrap");
 		
-		JRadioButton jRB2 = new JRadioButton("Radio Button #2");
-		jRB2.addActionListener(this);
+		jRB2 = new JRadioButton("Radio Button #2");
+		//jRB2.addActionListener(this);
 		bGroup.add(jRB2);
 		migLay.add(jRB2);
 		
 		jCB2 =  new JCheckBox("Check Box #2");
 		migLay.add(jCB2,"wrap");
 		
-		JRadioButton jRB3 = new JRadioButton("Radio Button #3");
-		jRB3.addActionListener(this);
+		jRB3 = new JRadioButton("Radio Button #3");
+		//jRB3.addActionListener(this);
 		bGroup.add(jRB3);	
 		migLay.add(jRB3);
-		
-		
-		
-		
 		
 		jTB = new JToggleButton("Toggle Button");
 		jTB.addActionListener(this);
@@ -179,33 +177,17 @@ public class Screen implements ItemListener,ActionListener {
 		jTA = new JTextArea("Text area");
 		migLay.add(jTA,"wrap");
 		
+		PrintButtonActionListener v = new PrintButtonActionListener(jCB1,jCB2, jTB, jTA,jRB1,jRB2,jRB3);
 		JButton jB = new JButton("print");
-		jB.addActionListener(this);
+		jB.addActionListener(v);
 		migLay.add(jB,"wrap");
 		return migLay;
 		
 	}
-	 public static void printData(JCheckBox jCB1, JCheckBox jCB2, JToggleButton jTB, int radio, JTextArea jTA){
-		 System.out.println("Check Box 1: " + Boolean.toString(jCB1.isSelected()));
-		 System.out.println("Check Box 2: " + Boolean.toString(jCB2.isSelected()));
-		 System.out.println("Radio " + radio);
-		 System.out.println("Toggle Button: " + Boolean.toString(jTB.isSelected()));
-		 System.out.println("Text: " + jTA.getText());
-	 }
+	
 	@Override
 	public void actionPerformed(ActionEvent evt) {
-		if ("print".equals(evt.getActionCommand())){
-			printData();
-		}
-		else if ("Toggle Button".equalsIgnoreCase(evt.getActionCommand())){
-			
-		}
-				
-		else{String a = evt.getActionCommand();
-			char b = a.charAt(a.length() -1);
-			String c = Character.toString(b);
-			radio = Integer.parseInt(c);
-		}
+		
 	}
 	
 	
